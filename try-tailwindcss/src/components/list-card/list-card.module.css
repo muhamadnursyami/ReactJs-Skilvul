@@ -1,0 +1,10 @@
+.listCard {
+    display: flex;
+    justify-content: space-between;
+    background-color: navajowhite;
+}
+.card {
+    padding:  5px;
+    border: 1px solid  black;
+    border-radius: 5px;
+}
