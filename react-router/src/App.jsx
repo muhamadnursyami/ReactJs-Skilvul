@@ -7,6 +7,7 @@ import Profile from "./components/Profile"
 
 import { Routes,Route,Link, Navigate  } from 'react-router-dom'
 import Login from "./components/Login"
+import DetailContact from "./components/DetailContact"
 function App() {
   // Kenapa state login ini harus berada di app,
   // kenapa tidak di component login, karena  ini berguna
@@ -48,6 +49,7 @@ function App() {
       <Route path="/" element={<Home/>}/> 
       <Route path="/about" element={<About/>}/> 
       <Route path="/contact" element={<Contact/>}/> 
+      <Route path="/contact/:id" element={<DetailContact/>}/> 
       <Route path="/profile" element={isLogin ? <Profile/> : <Navigate to={`/login`}/>}/> 
       <Route path="/login" element={<Login isLogin={setIsLogin}/>}/> 
       {/* <Route path="/*" element={<Error/>}/>  */}
