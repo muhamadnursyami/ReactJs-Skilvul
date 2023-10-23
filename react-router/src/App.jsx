@@ -1,33 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import About from "./components/About"
+import Contact from "./components/Contact"
+// import Error from "./components/Error"
+import Home from "./components/Home"
+import Profile from "./components/Profile"
 
+import { Routes,Route,Link, Navigate  } from 'react-router-dom'
+import Login from "./components/Login"
 function App() {
-  const [count, setCount] = useState(0)
-
+  // Kenapa state login ini harus berada di app,
+  // kenapa tidak di component login, karena  ini berguna
+  // untuk mengecek status apakah suatu halaman itu harus login atau tidak 
+  // seperti contoh dibawah pada routing profile, 
+  // halaman profile harus login terlebih dahulu jika ingin di akses, jika tidak
+  // maka akan di alihkan kehalaman login.
+  // state login ini di props kemudian di kasih data nya kedalam component login
+  // ketika user sudah login, maka dari component login akan merubah data state login
+  // false menjadi true.
+  // yang di props itu fungsi setIslogin bukan nilai isLogin,
+  // karena untuk merubah state login itu perlu fungsi setIsLogin.
+  const [isLogin, setIsLogin] = useState(false);
+  console.log(`isLogin ${isLogin}`);
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <ul>
+      <li>
+        <Link to={`/`}>
+        Home
+        </Link>
+      
+        </li>
+      <li><Link to={`/about`}>
+      About
+        </Link></li>
+      <li>
+      <Link to={`/contact`}>
+      Contact
+        </Link></li>
+      <li><Link to={`/profile`}>
+      Profile
+        </Link></li>
+      <li><Link to={`/login`}>
+      Login
+        </Link></li>
+    </ul>
+    <Routes>
+      <Route path="/" element={<Home/>}/> 
+      <Route path="/about" element={<About/>}/> 
+      <Route path="/contact" element={<Contact/>}/> 
+      <Route path="/profile" element={isLogin ? <Profile/> : <Navigate to={`/login`}/>}/> 
+      <Route path="/login" element={<Login isLogin={setIsLogin}/>}/> 
+      {/* <Route path="/*" element={<Error/>}/>  */}
+
+    </Routes>
     </>
   )
 }
